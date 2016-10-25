@@ -12,9 +12,11 @@ namespace BoxMenu
     /// </summary>
     public class ImageButton : BoxButton
     {
-        private Texture2D inactiveTexture, activeTexture, hoverTexture, clickTexture;
+        private readonly Texture2D inactiveTexture, activeTexture, hoverTexture, clickTexture;
+        private readonly Color activeColor, inactiveColor, hoverColor, clickColor;
 
         private Texture2D currentTexture;
+        private Color currentColor;
 
         /// <summary>
         /// 
@@ -27,17 +29,29 @@ namespace BoxMenu
         /// <param name="actionFunction">The delegate to the function raised by the button.</param>
         /// <param name="arguments">Any arguments to pass to the function raised by the button.</param>
         public ImageButton(Rectangle boundingBox,
+            ActionDelegate actionFunction, object[] arguments,
+
             Texture2D inactiveTexture,
             Texture2D activeTexture,
             Texture2D hoverTexture,
             Texture2D clickTexture,
-            ActionDelegate actionFunction, params object[] arguments)
+
+            Color? inactiveColor = null,
+            Color? activeColor = null,
+            Color? hoverColor = null,
+            Color? clickColor = null
+            )
             : base(boundingBox, actionFunction, arguments)
         {
             this.inactiveTexture = inactiveTexture;
             this.activeTexture = activeTexture;
             this.hoverTexture = hoverTexture;
             this.clickTexture = clickTexture;
+
+            this.inactiveColor = inactiveColor ?? Color.White;
+            this.activeColor = activeColor ?? Color.White;
+            this.hoverColor = hoverColor ?? Color.White;
+            this.clickColor = clickColor ?? Color.White;
 
             currentTexture = activeTexture;
         }
@@ -50,11 +64,7 @@ namespace BoxMenu
             spriteBatch.Draw(currentTexture,
                 BoundingBox,
                 null,
-                Color.White,
-                0f,
-                Vector2.Zero,
-                SpriteEffects.None,
-                0f);
+                currentColor);
         }
 
         internal override void UpdateAppearance()
@@ -63,15 +73,19 @@ namespace BoxMenu
             {
                 case BoxButtonState.Active:
                     currentTexture = activeTexture;
+                    currentColor = activeColor;
                     break;
                 case BoxButtonState.Inactive:
                     currentTexture = inactiveTexture;
+                    currentColor = inactiveColor;
                     break;
                 case BoxButtonState.Hovering:
                     currentTexture = hoverTexture;
+                    currentColor = hoverColor;
                     break;
                 case BoxButtonState.Clicking:
                     currentTexture = clickTexture;
+                    currentColor = clickColor;
                     break;
             }
         }
