@@ -16,13 +16,9 @@ namespace BoxMenu
         private MouseState nowState, prevState;
 
         /// <summary>
-        /// X offset for the draw of the entire collection
+        /// Offset of button from its original position.
         /// </summary>
-        public int OffsetX { get; set; }
-        /// <summary>
-        /// Y offset for the draw of the entire collection
-        /// </summary>
-        public int OffsetY { get; set; }
+        public Point Offset;
 
         internal int TIMER_MAX = 2;
 
@@ -97,7 +93,7 @@ namespace BoxMenu
             // Go in reverse order, so upper buttons block lower buttons.
             for (int i = buttons.Count-1; i >= 0; i--)
             {
-                if (buttons[i].Update(nowState, blocked, new Point(OffsetX, OffsetY)))
+                if (buttons[i].Update(nowState, blocked, Offset))
                     blocked = true;
             }
         }
@@ -109,7 +105,7 @@ namespace BoxMenu
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < buttons.Count; i++)
-                buttons[i].Draw(spriteBatch, OffsetX, OffsetY);
+                buttons[i].Draw(spriteBatch, Offset);
         }
 
         /// <summary>

@@ -31,7 +31,8 @@ namespace BoxMenu
         /// <summary>
         /// This box contains the on-screen position and dimensions of the button.
         /// </summary>
-        public Rectangle BoundingBox { get; set; }
+        public Rectangle BoundingBox { get; internal set; }
+        internal Rectangle origBoundingBox;
 
         /// <summary>
         /// Gets or sets whether this button is enabled.
@@ -48,8 +49,10 @@ namespace BoxMenu
         /// </summary>
         internal bool Update(MouseState nowState, bool blocked, Point offset)
         {
+            BoundingBox = new Rectangle(origBoundingBox.Location + offset, origBoundingBox.Size);
+
             bool blocking = false;
-            bool contains = new Rectangle(BoundingBox.Location + offset, BoundingBox.Size).Contains(nowState.X, nowState.Y);
+            bool contains = BoundingBox.Contains(nowState.X, nowState.Y);
 
             if (state == BoxButtonState.Clicking && clickTimer > 0)
             {
@@ -106,7 +109,7 @@ namespace BoxMenu
         /// </summary>
         internal abstract void UpdateAppearance();
         
-        internal abstract void Draw(SpriteBatch spriteBatch, int offset_x, int offset_y);
+        internal abstract void Draw(SpriteBatch spriteBatch, Point offset);
 
         /// <summary>
         /// A delegate with no return type which takes a
@@ -122,7 +125,7 @@ namespace BoxMenu
         internal BoxButton(Rectangle rectangle,
             ActionDelegate ad, params object[] arguments)
         {
-            BoundingBox = rectangle;
+            origBoundingBox = rectangle;
             this.ad = ad;
 
             this.arguments = arguments;

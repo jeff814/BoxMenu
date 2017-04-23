@@ -82,13 +82,13 @@ namespace BoxMenu
             }
         }
 
-        internal override void Draw(SpriteBatch spriteBatch, int offset_x, int offset_y)
+        internal override void Draw(SpriteBatch spriteBatch, Point offset)
         {
             if (!Visible)
                 return;
 
             spriteBatch.Draw(Texture,
-                new Rectangle(BoundingBox.Location + new Point(offset_x, offset_y), BoundingBox.Size),
+                BoundingBox,
                 null,
                 currentColor,
                 0f,
