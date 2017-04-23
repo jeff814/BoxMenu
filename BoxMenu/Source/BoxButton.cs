@@ -46,10 +46,10 @@ namespace BoxMenu
         /// <summary>
         /// This event is called when the mouse is clicked while selecting the item.
         /// </summary>
-        public bool Update(MouseState nowState, bool blocked)
+        internal bool Update(MouseState nowState, bool blocked, Point offset)
         {
             bool blocking = false;
-            bool contains = BoundingBox.Contains(nowState.X, nowState.Y);
+            bool contains = new Rectangle(BoundingBox.Location + offset, BoundingBox.Size).Contains(nowState.X, nowState.Y);
 
             if (state == BoxButtonState.Clicking && clickTimer > 0)
             {
@@ -105,8 +105,8 @@ namespace BoxMenu
         /// Update the appearance of the button
         /// </summary>
         internal abstract void UpdateAppearance();
-
-        internal abstract void Draw(SpriteBatch spriteBatch);
+        
+        internal abstract void Draw(SpriteBatch spriteBatch, int offset_x, int offset_y);
 
         /// <summary>
         /// A delegate with no return type which takes a
