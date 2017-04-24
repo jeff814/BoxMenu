@@ -42,7 +42,7 @@ namespace BoxMenu
             currentTexture = activeTexture;
         }
 
-        internal override void Draw(SpriteBatch spriteBatch, Point offset)
+        internal override void Draw(SpriteBatch spriteBatch)
         {
             if (!Visible)
                 return;

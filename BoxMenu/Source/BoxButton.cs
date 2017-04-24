@@ -109,7 +109,7 @@ namespace BoxMenu
         /// </summary>
         internal abstract void UpdateAppearance();
         
-        internal abstract void Draw(SpriteBatch spriteBatch, Point offset);
+        internal abstract void Draw(SpriteBatch spriteBatch);
 
         /// <summary>
         /// A delegate with no return type which takes a

@@ -105,7 +105,7 @@ namespace BoxMenu
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < buttons.Count; i++)
-                buttons[i].Draw(spriteBatch, Offset);
+                buttons[i].Draw(spriteBatch);
         }
 
         /// <summary>
