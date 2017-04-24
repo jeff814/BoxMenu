@@ -16,7 +16,7 @@ namespace BoxMenu
         private MouseState nowState, prevState;
 
         /// <summary>
-        /// Offset of button from its original position.
+        /// Visual offset of all buttons from their original positions.
         /// </summary>
         public Point Offset;
 
@@ -112,28 +112,38 @@ namespace BoxMenu
         /// Set the Enabled property of every button in the collection.
         /// </summary>
         /// <param name="enabled"></param>
-        private void SetEnabledAll(bool enabled)
+        public void SetEnabledAll(bool enabled)
         {
             for (int i = 0; i < buttons.Count; i++)
-            {
                 buttons[i].Enabled = enabled;
-            }
         }
 
         /// <summary>
-        /// Disable every button in the collection.
+        /// Set the Visible property of every button in the collection.
         /// </summary>
-        public void DisableAll()
+        /// <param name="visible"></param>
+        public void SetVisibleAll(bool visible)
         {
-            SetEnabledAll(false);
+            for (int i = 0; i < buttons.Count; i++)
+                buttons[i].Visible = visible;
         }
 
         /// <summary>
-        /// Enable every button in the collection.
+        /// Toggle the individual Enabled property of each button.
         /// </summary>
-        public void EnableAll()
+        public void ToggleEnabledAll()
         {
-            SetEnabledAll(true);
+            for (int i = 0; i < buttons.Count; i++)
+                buttons[i].Enabled = !buttons[i].Enabled;
+        }
+
+        /// <summary>
+        /// Toggle the individual Visible property of each button.
+        /// </summary>
+        public void ToggleVisibleAll()
+        {
+            for (int i = 0; i < buttons.Count; i++)
+                buttons[i].Visible = !buttons[i].Visible;
         }
 
         /// <summary>
@@ -143,9 +153,7 @@ namespace BoxMenu
         public IEnumerator<BoxButton> GetEnumerator()
         {
             for (int i = 0; i < buttons.Count; i++)
-            {
                 yield return buttons[i];
-            }
         }
 
         /// <summary>
